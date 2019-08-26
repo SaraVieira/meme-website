@@ -1,7 +1,24 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+const path = require(`path`)
 
-// You can delete this file if you're not using it
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+  const result = await graphql(`
+    query Memes {
+      memes {
+        memes {
+          id
+        }
+      }
+    }
+  `)
+
+  result.data.memes.memes.forEach(meme => {
+    createPage({
+      path: meme.id,
+      component: path.resolve(`./src/templates/meme.js`),
+      context: {
+        id: meme.id,
+      },
+    })
+  })
+}

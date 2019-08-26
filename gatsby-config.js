@@ -15,6 +15,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -27,8 +28,24 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    {
+      resolve: "gatsby-plugin-apollo",
+      options: {
+        uri:
+          "https://api-euwest.graphcms.com/v1/cjke2kn7p00ol01d2pinkptdj/master",
+      },
+    },
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        // This type will contain remote schema Query type
+        typeName: "Memes",
+        // This is field under which it's accessible
+        fieldName: "memes",
+        // Url to query from
+        url:
+          "https://api-euwest.graphcms.com/v1/cjke2kn7p00ol01d2pinkptdj/master",
+      },
+    },
   ],
 }
